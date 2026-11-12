@@ -18,11 +18,18 @@ DB_NAME = os.environ.get(
 )
 
 SCHOOL_START = time(8, 0)
+SCHOOL_END = time(16, 0)
 
 # Change these in Streamlit Cloud -> App -> Settings -> Secrets.
 # Defaults are retained from the original desktop application.
-ADMIN_USERNAME = st.secrets.get("ADMIN_USERNAME", "admin")
-ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", "admin123")
+
+try:
+    ADMIN_USERNAME = st.secrets.get("ADMIN_USERNAME", "admin")
+    ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", "admin123")
+except Exception:
+    ADMIN_USERNAME = "admin"
+    ADMIN_PASSWORD = "admin123"
+
 
 
 # ------------------------------------------------------------
@@ -181,16 +188,44 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+
 st.markdown("""
 <style>
-    .block-container {padding-top: 1.7rem; padding-bottom: 2rem;}
-    .main-title {font-size: 1.8rem; font-weight: 750; color: #17365d;}
-    div[data-testid="stMetric"] {
-        background: #f4f7fb; padding: 14px 16px;
-        border-radius: 12px; border: 1px solid #e5ebf3;
-    }
+/* Main application heading */
+.main-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    color: #1E3A8A;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+.sub-title {
+    text-align: center;
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+/* Center other headings */
+h1, h2, h3 {
+    text-align: center;
+}
 </style>
 """, unsafe_allow_html=True)
+
+
+#st.markdown(
+ #   '<div class="main-title">STUDENT ATTENDANCE MANAGEMENT SYSTEM</div>',
+  #  unsafe_allow_html=True
+#)
+
+st.markdown(
+    '<div class="sub-title">Manage student attendance efficiently</div>',
+    unsafe_allow_html=True
+)
 
 setup_database()
 
@@ -201,7 +236,12 @@ if "authenticated" not in st.session_state:
 def login_page():
     st.markdown("<div class='main-title'>📚 STUDENT ATTENDANCE</div>",
                 unsafe_allow_html=True)
-    st.caption("Administrator Login")
+    
+    st.markdown(
+    "<h2 style='text-align: center;'>Amin Login</h2>",
+    unsafe_allow_html=True
+)
+    
     left, center, right = st.columns([1, 1.2, 1])
     with center:
         with st.form("login_form"):
