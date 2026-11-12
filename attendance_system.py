@@ -10,20 +10,14 @@ from calendar import monthrange
 import pandas as pd
 import streamlit as st
 
+# ----------
 # ------------------------------------------------------------
-# SCHOOL SETTINGS
-# ------------------------------------------------------------
-<<<<<<< HEAD
 DB_NAME = os.environ.get(
     "ATTENDANCE_DB",
     str(Path(__file__).resolve().parent / "student_attendance.db")
 )
 
-=======
-DB_NAME = os.environ.get("ATTENDANCE_DB", "student_attendance.db")
->>>>>>> f9788dfb7268e3c6801f161823613cbc176e96d5
 SCHOOL_START = time(8, 0)
-SCHOOL_END = time(15, 0)
 
 # Change these in Streamlit Cloud -> App -> Settings -> Secrets.
 # Defaults are retained from the original desktop application.
